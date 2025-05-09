@@ -4,7 +4,7 @@ use http::Uri;
 use tokio::sync::mpsc::Sender;
 use tonic::transport::channel::Change;
 use tonic::transport::Endpoint;
-use tower::{util::BoxCloneService, Service};
+use tower::{util::BoxCloneSyncService, Service};
 
 /// A type alias to make the below types easier to represent.
 pub type EndpointUpdater = Sender<Change<Uri, Endpoint>>;
@@ -55,7 +55,7 @@ impl BalancedChannelBuilder for Openssl {
 
 type TonicRequest = http::Request<tonic::body::Body>;
 type TonicResponse = http::Response<tonic::body::Body>;
-pub type CustomChannel = BoxCloneService<TonicRequest, TonicResponse, tower::BoxError>;
+pub type CustomChannel = BoxCloneSyncService<TonicRequest, TonicResponse, tower::BoxError>;
 
 /// Represents a channel that can be created by a BalancedChannelBuilder
 /// or may be initialized externally and passed into the client.
