@@ -46,10 +46,8 @@ use std::str::FromStr;
 use std::sync::{Arc, RwLock};
 use std::time::Duration;
 use tokio::sync::mpsc::Sender;
-
+use tonic::transport::channel::Change;
 use tonic::transport::Endpoint;
-
-use tower::discover::Change;
 
 const HTTP_PREFIX: &str = "http://";
 const HTTPS_PREFIX: &str = "https://";

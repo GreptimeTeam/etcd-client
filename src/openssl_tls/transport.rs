@@ -13,7 +13,7 @@ use openssl::{
 use tokio::sync::mpsc::{Receiver, Sender};
 use tokio_stream::wrappers::ReceiverStream;
 use tonic::{
-    body::BoxBody,
+    body::Body,
     transport::{Channel, Endpoint},
 };
 use tower::{balance::p2c::Balance, buffer::Buffer, discover::Change};
@@ -23,7 +23,7 @@ use crate::error::Result;
 pub type SslConnectorBuilder = openssl::ssl::SslConnectorBuilder;
 pub type OpenSslResult<T> = std::result::Result<T, ErrorStack>;
 // Below are some type alias for make clearer types.
-pub type TonicRequest = Request<BoxBody>;
+pub type TonicRequest = Request<Body>;
 pub type Buffered<T> = Buffer<T, TonicRequest>;
 pub type Balanced<T> = Balance<T, TonicRequest>;
 pub type OpenSslChannel = Buffered<Balanced<OpenSslDiscover<Uri>>>;
